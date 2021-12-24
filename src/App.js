@@ -6,7 +6,7 @@ function App() {
   //const [scrambled, setScrambled] = useState("");
 
   useEffect(() => {
-    fetch("https://api.hatchways.io/assessment/sentences/1")
+    fetch("https://api.hatchways.io/assessment/sentences/2")
       .then((res) => res.json())
       .then((data) => setSentence(data.data.sentence));
   }, []);
@@ -25,6 +25,17 @@ function App() {
     );
 
     return scrambledArr.join(" ");
+  };
+
+  const checkIfLetterMatch = (e, letter) => {
+    if (e.target.value === letter) {
+      e.target.style.backgroundColor = "green";
+      e.target.style.color = "white";
+    }
+    if (e.target.value !== letter) {
+      e.target.style.backgroundColor = "red";
+      e.target.style.color = "white";
+    }
   };
 
   return (
@@ -46,15 +57,50 @@ function App() {
           className="container-bottom"
           style={{
             display: "flex",
-            justifyContent: "column",
+            justifyContent: "start",
+            alignItems: "start",
             flexDirection: "column",
+            width: "100%",
           }}
         >
           {sentence.split(" ").map((word) => (
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              style={{
+                backgroundColor: "white",
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
               {word.split("").map((letter) => (
-                <div>{letter}</div>
+                <div
+                  key={letter}
+                  style={{
+                    margin: "1vh",
+                    flexDirection: "row",
+                    display: "flex",
+                    justifyContent: "center",
+                    backgroundColor: "gray",
+                    width: `${80 / (word.length + 3)}vw`,
+                  }}
+                >
+                  <div className="letter-hidden">{letter}</div>
+                  <input
+                    onChange={(e) => checkIfLetterMatch(e, letter)}
+                    id="letter-input"
+                    type="text"
+                  />
+                </div>
               ))}
+
+              <div
+                style={{
+                  display: "flex",
+                  margin: "1vh",
+                  flexWrap: "wrap",
+                  backgroundColor: "gold",
+                  width: `${80 / (word.length + 1)}vw`,
+                }}
+              ></div>
             </div>
           ))}
         </div>

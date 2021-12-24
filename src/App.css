@@ -27,8 +27,20 @@
 
   justify-content: center;
   align-items: center;
-  height: 45vh;
+  width: 100%;
   background-color: white;
+}
+.letter-hidden {
+  display: none;
+}
+
+#letter-input {
+  outline: none !important;
+  background-color: gray;
+  box-shadow: none;
+  padding: .9vw;
+  width: 100%;
+  border: 0;
 }
 
 #scrambled-word {
