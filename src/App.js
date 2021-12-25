@@ -3,13 +3,16 @@ import "./App.css";
 
 function App() {
   const [sentence, setSentence] = useState("");
+  const [allCorrect, setAllCorrect] = useState(1);
+  const [score, setScore] = useState(0);
+  const [sentIndex, setSentIndex] = useState(1);
   //const [scrambled, setScrambled] = useState("");
 
   useEffect(() => {
-    fetch("https://api.hatchways.io/assessment/sentences/2")
+    fetch(`https://api.hatchways.io/assessment/sentences/${sentIndex}`)
       .then((res) => res.json())
       .then((data) => setSentence(data.data.sentence));
-  }, []);
+  }, [sentIndex, setSentence]);
 
   const scrambler = (sentence) => {
     let scrambledArr = [];
@@ -31,11 +34,27 @@ function App() {
     if (e.target.value === letter) {
       e.target.style.backgroundColor = "green";
       e.target.style.color = "white";
+      correctnessHandle(letter);
     }
     if (e.target.value !== letter) {
       e.target.style.backgroundColor = "red";
       e.target.style.color = "white";
     }
+  };
+
+  const correctnessHandle = async (letter) => {
+    setAllCorrect(allCorrect + 1);
+    console.log(allCorrect);
+    const newSent = sentence.replace(/\s/g, "");
+    console.log(newSent);
+    
+  };
+
+  const nextString = () => {
+    setScore(score + 1);
+    setAllCorrect(1);
+    setSentIndex(sentIndex + 1);
+    console.log(sentIndex);
   };
 
   return (
@@ -51,14 +70,14 @@ function App() {
             The yellow blocks are meant for spaces
           </div>
           <br />
-          <div id="score">Score: 0</div>
+          <div id="score">Score: {score}</div>
         </div>
         <div
           className="container-bottom"
           style={{
             display: "flex",
             justifyContent: "start",
-            alignItems: "start",
+            alignItems: "center",
             flexDirection: "column",
             width: "100%",
           }}
@@ -73,7 +92,6 @@ function App() {
             >
               {word.split("").map((letter) => (
                 <div
-                  key={letter}
                   style={{
                     margin: "1vh",
                     flexDirection: "row",
@@ -103,6 +121,28 @@ function App() {
               ></div>
             </div>
           ))}
+          {allCorrect === sentence.replace(/\s/g, "").length + 1 && (
+            <div
+              style={{
+                marginLeft: "42.5vw",
+                backgroundColor: "white",
+              }}
+            >
+              <div
+                onClick={() => nextString()}
+                style={{
+                  paddingTop: "2vh",
+                  backgroundColor: "green",
+                  color: "white",
+                  height: "5vh",
+                  width: "9vw",
+                  borderRadius: "35%",
+                }}
+              >
+                Next
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
