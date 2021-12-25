@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   const [sentence, setSentence] = useState("");
-  const [allCorrect, setAllCorrect] = useState(1);
+  const [allCorrect, setAllCorrect] = useState(0);
   const [score, setScore] = useState(0);
   const [sentIndex, setSentIndex] = useState(1);
   //const [scrambled, setScrambled] = useState("");
@@ -56,7 +56,6 @@ function App() {
     setScore(score + 1);
     setAllCorrect(1);
     setSentIndex(sentIndex + 1);
-    console.log(sentIndex);
   };
 
   return (
@@ -94,19 +93,19 @@ function App() {
               }}
             >
               {word.split("").map((letter) => (
-                  <input
-                    onChange={(e) => checkIfLetterMatch(e, letter)}
-                    id="letter-input"
-                    type="text"
-                    style={{
-                      margin: "1vh",
-                      flexDirection: "row",
-                      display: "flex",
-                      justifyContent: "center",
-                      backgroundColor: "gray",
-                      width: `${80 / (word.length + 3)}vw`,
-                    }}
-                  />
+                <input
+                  onChange={(e) => checkIfLetterMatch(e, letter)}
+                  id="letter-input"
+                  type="text"
+                  style={{
+                    margin: "1vh",
+                    flexDirection: "row",
+                    display: "flex",
+                    justifyContent: "center",
+                    backgroundColor: allCorrect === 1 && "gray",
+                    width: `${80 / (word.length + 3)}vw`,
+                  }}
+                />
               ))}
 
               <div
@@ -120,7 +119,7 @@ function App() {
               ></div>
             </div>
           ))}
-          {allCorrect === sentence.replace(/\s/g, "").length + 1 && (
+          {allCorrect === sentence.replace(/\s/g, "").length && (
             <div
               style={{
                 marginLeft: "42.5vw",
