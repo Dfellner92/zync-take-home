@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
 import "./App.css";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [sentIndex, setSentIndex] = useState(1);
   //const [scrambled, setScrambled] = useState("");
+  const inputEl = useRef();
 
   useEffect(() => {
     fetch(`https://api.hatchways.io/assessment/sentences/${sentIndex}`)
@@ -47,10 +49,10 @@ function App() {
     console.log(allCorrect);
     const newSent = sentence.replace(/\s/g, "");
     console.log(newSent);
-    
   };
 
   const nextString = () => {
+    inputEl.current.reset();
     setScore(score + 1);
     setAllCorrect(1);
     setSentIndex(sentIndex + 1);
@@ -72,7 +74,8 @@ function App() {
           <br />
           <div id="score">Score: {score}</div>
         </div>
-        <div
+        <form
+          ref={inputEl}
           className="container-bottom"
           style={{
             display: "flex",
@@ -91,23 +94,19 @@ function App() {
               }}
             >
               {word.split("").map((letter) => (
-                <div
-                  style={{
-                    margin: "1vh",
-                    flexDirection: "row",
-                    display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "gray",
-                    width: `${80 / (word.length + 3)}vw`,
-                  }}
-                >
-                  <div className="letter-hidden">{letter}</div>
                   <input
                     onChange={(e) => checkIfLetterMatch(e, letter)}
                     id="letter-input"
                     type="text"
+                    style={{
+                      margin: "1vh",
+                      flexDirection: "row",
+                      display: "flex",
+                      justifyContent: "center",
+                      backgroundColor: "gray",
+                      width: `${80 / (word.length + 3)}vw`,
+                    }}
                   />
-                </div>
               ))}
 
               <div
@@ -143,7 +142,7 @@ function App() {
               </div>
             </div>
           )}
-        </div>
+        </form>
       </div>
     </div>
   );
