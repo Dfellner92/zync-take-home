@@ -1,13 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-
 import "./App.css";
 
 function App() {
   const [sentence, setSentence] = useState("");
-  const [allCorrect, setAllCorrect] = useState(0);
+  const [allCorrect, setAllCorrect] = useState(2);
   const [score, setScore] = useState(0);
   const [sentIndex, setSentIndex] = useState(1);
-  //const [scrambled, setScrambled] = useState("");
   const inputEl = useRef();
 
   useEffect(() => {
@@ -62,81 +60,43 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="container-top">
-          <div id="scrambled-word">{scrambler(sentence)}</div>
+          <div className="container-top_scrambled">{scrambler(sentence)}</div>
           <br />
-          <div className="instructions">Guess the sentence! Start typing.</div>
+          <div className="container-top_instructions">
+            Guess the sentence! Start typing.
+          </div>
           <br />
-          <div className="instructions">
-            {" "}
+          <div className="container-top_instructions">
             The yellow blocks are meant for spaces
           </div>
           <br />
-          <div id="score">Score: {score}</div>
+          <div className="container-top_score">Score: {score}</div>
         </div>
-        <form
-          ref={inputEl}
-          className="container-bottom"
-          style={{
-            display: "flex",
-            justifyContent: "start",
-            alignItems: "center",
-            flexDirection: "column",
-            width: "100%",
-          }}
-        >
+        <form ref={inputEl} className="container-bottom">
           {sentence.split(" ").map((word) => (
-            <div
-              style={{
-                backgroundColor: "white",
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
+            <div className="container-bottom_row">
               {word.split("").map((letter) => (
                 <input
                   onChange={(e) => checkIfLetterMatch(e, letter)}
-                  id="letter-input"
+                  className="container-bottom_row--word"
                   type="text"
                   style={{
-                    margin: "1vh",
-                    flexDirection: "row",
-                    display: "flex",
-                    justifyContent: "center",
                     backgroundColor: allCorrect === 1 && "gray",
                     width: `${80 / (word.length + 3)}vw`,
                   }}
                 />
               ))}
-
               <div
+                className="container-bottom_row--space"
                 style={{
-                  display: "flex",
-                  margin: "1vh",
-                  flexWrap: "wrap",
-                  backgroundColor: "gold",
                   width: `${80 / (word.length + 1)}vw`,
                 }}
               ></div>
             </div>
           ))}
-          {allCorrect === sentence.replace(/\s/g, "").length && (
-            <div
-              style={{
-                marginLeft: "42.5vw",
-                backgroundColor: "white",
-              }}
-            >
-              <div
-                onClick={() => nextString()}
-                style={{
-                  paddingTop: "2vh",
-                  backgroundColor: "green",
-                  color: "white",
-                  height: "5vh",
-                  width: "9vw",
-                  borderRadius: "35%",
-                }}
-              >
+          {allCorrect - 2 === sentence.replace(/\s/g, "").length && (
+            <div className="button-background">
+              <div className="button-function" onClick={() => nextString()}>
                 Next
               </div>
             </div>

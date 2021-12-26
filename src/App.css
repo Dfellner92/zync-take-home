@@ -21,77 +21,68 @@
   background-color: white;
 }
 
-.container-bottom {
-  display: flex;
-  border-radius: 2%;
-
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-}
-.letter-hidden {
-  display: none;
-}
-
-#letter-input {
-  outline: none !important;
-  background-color: gray;
-  box-shadow: none;
-  padding: .9vw;
-  width: 100%;
-  border: 0;
-}
-
-#scrambled-word {
+.container-top_scrambled {
   background-color: white;
   font-size: 6vh;
   color: darkblue;
 }
 
-#score {
+.container-top_score {
   font-size: 4vh;
   background-color: white;
 }
 
-.instructions {
+.container-top_instructions {
   background-color: white;
 }
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container-bottom {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 2%;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  flex-direction: column;
+}
+.container-bottom_row {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.container-bottom_row--word {
+  outline: none !important;
+  background-color: gray;
+  box-shadow: none;
+  padding: 0.9vw;
+  border: 0;
+  margin: 1vh;
+  flex-direction: "row";
+  display: "flex";
+  justify-content: "center";
+}
+
+.container-bottom_row--space {
+  display: flex;
+  margin: 1vh;
+  flex-wrap: wrap;
+  background-color: gold;
+}
+
+.button-background {
+  margin-left: 42.5vw;
+  background-color: white;
+}
+
+.button-function {
+  padding-top: 2vh;
+  padding-left: 1vw;
+  background-color: green;
   color: white;
-}
+  height: 5vh;
+  width: 5vw;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  border-radius: 35%;
+  justify-content: center;
 }
